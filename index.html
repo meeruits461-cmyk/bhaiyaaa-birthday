@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bhaiya! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <!-- Stars Background -->
+    <div class="stars-container"></div>
+    
+    <!-- Canvas for Fireworks -->
+    <canvas id="fx-canvas"></canvas>
+
+    <!-- Floating Balloons Container -->
+    <div id="balloon-container"></div>
+
+    <!-- Music Control Button -->
+    <button id="music-btn" class="music-controller">🎵 Play Music</button>
+    <audio id="bg-music" src="birthday-music.mp3" loop prefetch></audio>
+
+    <div class="card-container">
+        
+        <!-- PAGE 1: Welcome -->
+        <div class="page active" id="page-1">
+            <h1 class="main-title anim-pop">Hey Bhaiya! 👀</h1>
+            <p class="subtitle">Aapke liye ek chota sa surprise tayyar kiya hai...</p>
+            <button class="btn btn-primary" onclick="startSurpriseWithMusic()">Surprise Dekhein! ✨</button>
+        </div>
+
+        <!-- PAGE 2: Question 1 -->
+        <div class="page" id="page-2">
+            <h2>Pehle 1 choti si baat batayein... 🤔</h2>
+            <p class="question-text">Kya aapko sach mein lagta hai ke aap bohot samajhdaar hain?</p>
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="nextPage(3)">Haan bilkul! 😎</button>
+                <button class="btn btn-danger" onclick="nextPage(3)">Nahi, thoda kam 😜</button>
+            </div>
+        </div>
+
+        <!-- PAGE 3: Question 2 -->
+        <div class="page" id="page-3">
+            <h2>Acha ek aur baat... 🤭</h2>
+            <p class="question-text">Gussa sabse zyada kis baat par aata hai aapko?</p>
+            <div class="btn-group-vertical">
+                <button class="btn btn-accent" onclick="nextPage(4)">Jab koi tang kare 😤</button>
+                <button class="btn btn-accent" onclick="nextPage(4)">Jab net slow ho 🌐</button>
+                <button class="btn btn-accent" onclick="nextPage(4)">Mujh par toh bilkul nahi! 😇</button>
+            </div>
+        </div>
+
+        <!-- PAGE 4: Question 3 -->
+        <div class="page" id="page-4">
+            <h2 id="q4-title">Aakhri sawaal! 😂</h2>
+            <div id="q4-btns">
+                <p class="question-text">Kya aap mujhe ek achi si treat dene wale hain?</p>
+                <button class="btn btn-success" onclick="startCountdown()">Haan badi wali! 🍕</button>
+                <button class="btn btn-danger" onclick="revealIrritate()">Nahi bilkul nahi 🤐</button>
+            </div>
+            <div id="q4-reveal" class="hide">
+                <p class="irritate-text">Kanjusi nahi chalegi Bhaiya! Treat toh deni padegi! 😜</p>
+                <button class="btn btn-primary mt-2" onclick="startCountdown()">Acha baba theek hai, Next chalo! ➡️</button>
+            </div>
+        </div>
+
+        <!-- PAGE 5: Countdown -->
+        <div class="page" id="page-5">
+            <h2>Hold your breath... ⏳</h2>
+            <div class="countdown-box">
+                <span id="countdown-number">3️⃣</span>
+            </div>
+        </div>
+
+        <!-- PAGE 6: Grand Reveal Burst -->
+        <div class="page" id="page-6">
+            <h1 class="grand-title">💥 BOOM! 💥</h1>
+            <h2 class="sparkle-text">HAPPY BIRTHDAY TO THE BEST BHAIYA IN THE WORLD! 👑🎉</h2>
+            <p>Aapke liye fireworks aur balloons active kar diye hain!</p>
+            <button class="btn btn-gold bounce" onclick="nextPage(7)">Mera Special Letter Parhein 💌</button>
+        </div>
+
+        <!-- PAGE 7: The Master Letter Screen -->
+        <div class="page" id="page-7">
+            <h2>A Special Message For You... ✨</h2>
+            <div class="letter-box">
+                <!-- Direct load container without typing crash -->
+                <pre id="typing-text"></pre>
+            </div>
+            <button id="letter-continue-btn" class="btn btn-primary" onclick="startSlideshowPage()">Next: Memories 📸</button>
+        </div>
+
+        <!-- PAGE 8: Memory Slideshow -->
+        <div class="page" id="page-8">
+            <h2>Our Beautiful Memories 📸</h2>
+            <div class="slider-wrapper">
+                <img id="slideshow-img" src="photo1.jpg" alt="Bhaiya Memories">
+                <div class="slider-nav">
+                    <button class="nav-btn" onclick="changePicture(-1)">◀ Prev</button>
+                    <button class="nav-btn" onclick="changePicture(1)">Next ▶</button>
+                </div>
+            </div>
+            <button class="btn btn-gold mt-3" onclick="goToCakePage()">Chalein Cake Kaatein! 🎂</button>
+        </div>
+
+        <!-- PAGE 9: Cake Cutting -->
+        <div class="page" id="page-9">
+            <h2>Make a Wish Bhaiya! 🕯✨</h2>
+            <div class="cake-area">
+                <div class="cake-graphic">🎂</div>
+                <div id="cake-candle" class="candle-graphic">🕯</div>
+            </div>
+            <button id="blow-btn" class="btn btn-primary dynamic-pulse" onclick="blowCandle()">🕯 Blow Candle</button>
+        </div>
+
+        <!-- PAGE 10: Final Thank You Page -->
+        <div class="page" id="final-page">
+            <h1 class="thankyou-title">Always Be Happy! 😊</h1>
+            <p class="final-note">Umeed hai aapko yeh chota sa surprise pasand aaya hoga. You mean a lot to me! ❤️</p>
+            <div class="heart-icon">💝</div>
+            <button class="btn btn-secondary" onclick="restartSurprise()">Once More? 🔄</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
